@@ -12,7 +12,7 @@ using Autodesk.Revit.UI.Selection;
 namespace Test_01_03
 {
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
-    public class Test03_HighlightSelObjSort_test : IExternalCommand
+    public class Test03_HighlightSelObjSort : IExternalCommand
     {
 		public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
 		{
@@ -112,9 +112,7 @@ namespace Test_01_03
 				t.Commit();
 				t.Dispose();
 			}
-		}
-
-				//test			
+		}		
         
     }
 }
