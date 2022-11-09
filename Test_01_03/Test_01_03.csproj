@@ -31,6 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdWindows, Version=2017.11.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2019\AdWindows.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="RevitAPI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2019\RevitAPI.dll</HintPath>
     </Reference>
@@ -39,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,6 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test02_PickMultiObjects.cs" />
+    <Compile Include="Test06_RubberBandLine_rewrite.cs" />
+    <Compile Include="Test05_WindowsMessaging.cs" />
+    <Compile Include="Test05_RubberBandLine_2.cs" />
+    <Compile Include="Test04_RubberBandLine_1_willCrash.cs" />
     <Compile Include="Test03_HighlightSelObjSort.cs" />
     <Compile Include="Test01_PickObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
