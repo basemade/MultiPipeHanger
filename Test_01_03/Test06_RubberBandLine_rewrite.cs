@@ -34,9 +34,21 @@ namespace Test_01_03
 
 			_revit_window = application.MainWindowHandle;
 
+
 			FilteredElementCollector val = new FilteredElementCollector(document);
-			val.OfCategory((BuiltInCategory)(-2002000));//OST_DetailComponents = -2002000
+
+            //val.OfCategory((BuiltInCategory)(-2002000));//OST_DetailComponents = -2002000	//原寫法特別
+            val.OfCategory(BuiltInCategory.OST_DetailComponents);
+			//Applies an ElementCategoryFilter to the collector.
+			//Return Value：This collector.
+
 			val.OfClass(typeof(FamilySymbol));
+			//Applies an ElementClassFilter to the collector.
+			//Return Value：A handle to this collector.This is the same collector that has just been modified, returned so you can chain multiple calls together in one line.
+			//Gettype()返回的是實例的type，而typeof返回的是類型的type
+			//typeof 是C#的運算子語法
+
+
 			FamilySymbol val2 = (from FamilySymbol tag in (IEnumerable)new FilteredElementCollector(document).OfClass(typeof(FamilySymbol)).OfCategory((BuiltInCategory)(-2002000))
 								 where Operators.CompareString(((Element)tag).Name, "RubberBand", TextCompare: false) == 0
 								 select (tag)).First();
