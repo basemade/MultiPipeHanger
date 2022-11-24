@@ -30,7 +30,7 @@ namespace Test_01_03
 			//Dynamo's transaction handling is pretty poor for multiple documents,
 			//so we'll need to force close every single transaction we open
 
-			TaskDialog.Show("Selection", "Pick elements in the desired order (re-select to Remove), hit ESC to stop picking.");
+			TaskDialog.Show("Selection", "依照順序點選元件 (若要移除請再點選一次)  \r完成後 ESC鍵 停止選取");
 			TransactionGroup tg = new TransactionGroup(doc, "tgSelection");
 			tg.Start();
 			
@@ -60,13 +60,24 @@ namespace Test_01_03
 					break;
 				}
 
+
+			st.AppendLine("已選取：");
 			tg.RollBack();
 			foreach (ElementId xId in selectId)
 			{
-				st.AppendLine("element.Id：" + xId);
+				//ElementType elemtyp = doc.GetElement(xId) as ElementType;
+				//st.AppendLine(elemtyp.FamilyName);
+				//上面這樣做拿不到familyName
+
+				
+				Element elem = doc.GetElement(xId);
+				Parameter para = elem.get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM);
+
+
+				st.AppendLine(para.AsValueString() + "@@@" + doc.GetElement(xId).Name);
 			}
 
-			
+
 			MessageBox.Show(st.ToString());
 			return Result.Succeeded;
 
