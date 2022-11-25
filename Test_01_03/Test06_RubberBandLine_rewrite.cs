@@ -49,13 +49,20 @@ namespace Test_01_03
 			//typeof 是C#的運算子語法
 
 
-			FamilySymbol val2 = (from FamilySymbol tag in (IEnumerable)new FilteredElementCollector(document).OfClass(typeof(FamilySymbol)).OfCategory((BuiltInCategory)(-2002000))
+			//FamilySymbol val2 = (from FamilySymbol tag in (IEnumerable)new FilteredElementCollector(document).OfClass(typeof(FamilySymbol)).OfCategory((BuiltInCategory)(-2002000))
+			//					 where Operators.CompareString(((Element)tag).Name, "RubberBand", TextCompare: false) == 0
+			//					 select (tag)).First();
+
+			FamilySymbol val2 = (from FamilySymbol tag in val
 								 where Operators.CompareString(((Element)tag).Name, "RubberBand", TextCompare: false) == 0
 								 select (tag)).First();
 			//上面這是LINQ語法
 
 			_added_element_ids.Clear();
+			//每次要選取前都先清空list
+
 			application2.DocumentChanged += new EventHandler<DocumentChangedEventArgs>(OnDocumentChanged);
+			//revit的事件
 
 			try
 			{
