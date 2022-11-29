@@ -17,7 +17,9 @@ namespace Test_01_03
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
 	[Regeneration(RegenerationOption.Manual)]
 	public class Test06_RubberBandLine_rewrite : IExternalCommand
-    {
+	//我們在寫的是類別庫，而Test06_ConceptRefresh這個Class，有利用IExternalCommand這個介面 進行方法的擴充
+	//IExternalCommand是Revit API用戶透過外部命令来擴展功能的介面
+	{
 		private IntPtr _revit_window;
 		private List<ElementId> _added_element_ids;
 
@@ -25,12 +27,28 @@ namespace Test_01_03
 		{
 			_added_element_ids = new List<ElementId>();
 		}
+		//Test06_ConceptRefresh這個Class的建構子
+
 		public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+		//Test06_ConceptRefresh這個Class在實作時，需要宣告IExternalCommand這個介面要求的方法Execute()
+		//方法Execute()回傳型別為Result，所以這個方法最後會回傳狀態 ex: return Result.Succeeded;
+		//方法Execute()並且需要宣告三種型別的參數ExternalCommandData, ref string , ElementSet
+		//ExternalCommandData is a class contains reference to Application and View which are needed by external command.
 		{
 			UIApplication application = commandData.Application;
+			//ExternalCommandData 這個類別含有一個property ".Application" 型別為UIApplication；所有的Revit的數據都可以透過這個參數直接或間接地取得
 			UIDocument activeUIDocument = application.ActiveUIDocument;
 			Application application2 = application.Application;
+			//UiApplication.Application，此處的Application為UiApplication的其中一個屬性
+			//Returns the database level Application represented by this UI level Application.
+			//翻譯：回傳UIApplication此層級的整個應用操作
+			//ps.許多應用層級、介面層級、文件層級的物件，都有Application這個屬性
+			//ps.Application這個Class即是提供，"應用相關屬性"的存取權(先不要困惑為什麼自己本身也是Class)
+			//ps.You can also have more than one running instance of the Revit application, so you'll need to specify the application you're targeting. 
+
 			Document document = activeUIDocument.Document;
+			//待了解有關document的介紹
+			//https://dynamopythonprimer.gitbook.io/dynamo-python-primer/4-revit-specific-topics/doc-uidoc-app-uiapp#application-and-document
 
 			_revit_window = application.MainWindowHandle;
 
@@ -52,7 +70,6 @@ namespace Test_01_03
 			//FamilySymbol val2 = (from FamilySymbol tag in (IEnumerable)new FilteredElementCollector(document).OfClass(typeof(FamilySymbol)).OfCategory((BuiltInCategory)(-2002000))
 			//					 where Operators.CompareString(((Element)tag).Name, "RubberBand", TextCompare: false) == 0
 			//					 select (tag)).First();
-
 			FamilySymbol val2 = (from FamilySymbol tag in val
 								 where Operators.CompareString(((Element)tag).Name, "RubberBand", TextCompare: false) == 0
 								 select (tag)).First();
