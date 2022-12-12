@@ -113,7 +113,7 @@ namespace Test_01_03
 					gSettings.SetProjectionLineColor(color_rgb);
 					gSettings.SetCutLineColor(color_rgb);
 					gSettings.SetCutForegroundPatternColor(color_rgb);
-					gSettings.SetProjectionLineWeight(8);
+					gSettings.SetProjectionLineWeight(2);
 					gSettings.SetSurfaceTransparency(80);
 				}
 				
